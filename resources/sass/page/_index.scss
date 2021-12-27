@@ -1,5 +1,8 @@
 .card{
     width:100%;
+    .btn{
+        height:100%;
+    }
     .counters{
         margin-right: 30px;
         font-size: 10px;
@@ -16,19 +19,21 @@
         }
 
         .status{
-            
+            &.unanswered{
+                border: none;
+            }
+            &.answered{
+                border: 1px solid $color-green;
+                color: $color-green;
+            }
+            &.answered-accepted{
+                background-color:$color-green;
+                color:$color-white;
+            }
         }
-        .unanswered{
-            border:none;
-        }
-        .answered{
-            border: 1px solid $color-green;
-            color: $color-green;
-        }
-        .answerd-accepted{
-            background-color:$color-green;
-            color:$color-white;
-        }
+     
+      
+      
         .view{
         margin-top:10px;
         }

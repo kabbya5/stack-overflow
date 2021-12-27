@@ -11286,3 +11286,39 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.card {
+  width: 100%;
+}
+.card .btn {
+  height: 100%;
+}
+.card .counters {
+  margin-right: 30px;
+  font-size: 10px;
+  text-align: center;
+}
+.card .counters strong {
+  display: block;
+  font-size: 24px;
+}
+.card .counters .vote, .card .counters .answer {
+  width: 60px;
+  height: 60px;
+}
+.card .counters .status.unanswered {
+  border: none;
+}
+.card .counters .status.answered {
+  border: 1px solid #5fbb7e;
+  color: #5fbb7e;
+}
+.card .counters .status.answered-accepted {
+  background-color: #5fbb7e;
+  color: #fff;
+}
+.card .counters .view {
+  margin-top: 10px;
+}
+.card .form-delete {
+  display: inline;
+}

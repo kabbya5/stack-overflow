@@ -11,26 +11,25 @@ class Question extends Model
     use HasFactory;
 
     protected $guarded = [];
+    
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsto(User::class);
     }
-
     public function setTitleAttribute($value){
         $this->attributes['title'] = $value;
         $this->attributes['slug'] = str_slug($value);
     }
+
     public function getUrlAttribute(){
-        return route('questions.show',$this->slug);
+        return route('questions.show',$this->id);
     }
-    public function getCreatedDateAttribute()
-    {
+    public function getCreatedDateAttribute(){
         return $this->created_at->diffForHumans();
     }
-    public function getStatusAttribute()
-    {
+    public function getStatusAttribute(){
         if($this->answers > 0){
-            if($this->best_answer_id){
-                return "answerd-accepted";
+            if ($this->best_answer_id){
+                return "answered-accepted";
             }
             return "answered";
         }
