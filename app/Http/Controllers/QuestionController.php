@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Question;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\AskQuestionRequest;
 
 class QuestionController extends Controller
@@ -70,7 +71,16 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-        return view('questions.edit', compact('question'));
+        if(Gate::allows('update-question', $question)){
+            return view('questions.edit', compact('question'));
+        }
+        abort(403, "You can't Access this page");
+
+        // if (Gate::denies('update-question', $question)){
+        //     abort(403, "You can't Access this page");
+        // }
+
+        return view('questions.edit', compact('question'));  
     }
 
     /**
@@ -96,7 +106,10 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        $question->delete();
-        return redirect()->route('questions.index')->with('success','Question has been remove');
+        if(Gate::allows('delete-question', $question)){
+            $question->delete();
+            return redirect()->route('questions.index')->with('success','Question has been remove');
+        }
+        abort(403, "You can't Access this page"); 
     }
 }
