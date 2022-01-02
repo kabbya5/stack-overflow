@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\AnswersController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,8 +25,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('questions', QuestionController::class)->only([
     'index','store','update','destory','create'
 ]);
-Route::resource('questions', QuestionController::class)->except('show');
+
 Route::get('/questions/{slug}/',[ QuestionController::class,'show'])->name('questions.show');
+Route::resource('questions', QuestionController::class)->except('show');
+Route::resource('questions.answers', AnswersController::class)->except(['index','create','show']);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
