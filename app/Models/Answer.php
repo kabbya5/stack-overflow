@@ -32,11 +32,31 @@ class Answer extends Model
             $question->save();
         });
     }
+    public function isBest(){
+        return $this->id === $this->question->best_answer_id;
+    }
+    public function getIsBestAttribute()
+    {
+        return $this->isBest();
+    }
+    
+    public function getStatusAttribute(){
+        return $this->isBest() ? 'vote-accepted' :' ';
+    }
+ 
     public function getCreatedDateAttribute(){
         return $this->created_at->diffForHumans();
     }
-    public function getStatusAttibute(){
-        return $this->id === $this->question->best_answer_id ? 'vote-accepted' :' ';
+
+    public function votes(){
+        return $this->morphToMany(User::class, 'votable');
     }
+    public function upVotes(){
+        return $this->votes()->wherePivot('vote', 1);
+    }
+    public function downVotes(){
+        return $this->votes()->wherePivot('vote', -1);
+    }
+
 
 }

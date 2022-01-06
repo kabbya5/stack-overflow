@@ -11347,6 +11347,9 @@ textarea.form-control-lg {
 .card .vote-controls a.favorite.favorited, .card .vote-controls a.favorite.favorited:hover {
   color: #ffc107;
 }
+.card .vote-controls a.vote-accepted {
+  color: #5fbb7e;
+}
 
 /*!
  * Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com
