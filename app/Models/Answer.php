@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Question;
 use App\Models\User;
+use App\Models\VotableTrait;
 
 class Answer extends Model
 {
+    use VotableTrait;
     use HasFactory;
     protected $guarded = [];
     public function question(){
@@ -47,16 +49,4 @@ class Answer extends Model
     public function getCreatedDateAttribute(){
         return $this->created_at->diffForHumans();
     }
-
-    public function votes(){
-        return $this->morphToMany(User::class, 'votable');
-    }
-    public function upVotes(){
-        return $this->votes()->wherePivot('vote', 1);
-    }
-    public function downVotes(){
-        return $this->votes()->wherePivot('vote', -1);
-    }
-
-
 }

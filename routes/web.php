@@ -39,5 +39,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::post('/answers/{answer}/accept',[AcceptAnswerController::class,'AcceptAnswer'])->name('answers.accept');
 Route::post('/questions/{question}/favorites',[FavoritesController::class,'store'])->name('questions.favorite');
 Route::delete('/questions/{question}/favorites',[FavoritesController::class, 'destroy'])->name('questions.favorite.delete');
-Route::post('/questions/{question}/vote',[FavoritesController::class, 'vote'])->name('question.vote');
-Route::post('/answer/{answer}/vote',[FavoritesController::class, 'answerVote'])->name('answer.vote');
+Route::post('/questions/{question}/vote',[FavoritesController::class, 'vote'])->name('questions.vote');
+Route::post('/answers/{answer}/vote',[FavoritesController::class, 'answerVote'])->name('answers.vote');

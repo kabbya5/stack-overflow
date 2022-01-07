@@ -67,32 +67,53 @@ class User extends Authenticatable
         return $this->morphedByMany(Answer::class,'votable');
     }
 
-    public function voteQuestion(Question $question, $vote){
-        $voteQuestions = $this->voteQuestions();
-        if($voteQuestions->where('votable_id',$question->id)->exists()){
-            $voteQuestions->updateExistingPivot($question, ['vote' => $vote]);
-        }else{
-            $voteQuestions->attach($question, ['vote' =>$vote]);
-        }
-        $question->load('votes');
-        $downVotes = (int) $question->downVotes()->sum('vote');
-        $upVotes = (int) $question->upVotes()->sum('vote');
-        $question->votes_count = $upVotes + $downVotes;
-        $question->save();
-    }
+    // public function voteQuestion(Question $question, $vote){
+    //     $voteQuestions = $this->voteQuestions();
+    //     if($voteQuestions->where('votable_id',$question->id)->exists()){
+    //         $voteQuestions->updateExistingPivot($question, ['vote' => $vote]);
+    //     }else{
+    //         $voteQuestions->attach($question, ['vote' =>$vote]);
+    //     }
+    //     $question->load('votes');
+    //     $downVotes = (int) $question->downVotes()->sum('vote');
+    //     $upVotes = (int) $question->upVotes()->sum('vote');
+    //     $question->votes_count = $upVotes + $downVotes;
+    //     $question->save();
+    // }
 
-    public function voteAnswer(Answer $answer,$vote){
+    // public function voteAnswer(Answer $answer,$vote){
+    //     $voteAnsers = $this->voteAnswers();
+    //     if($voteAnsers->where('votable_id',$answer->id)->exists()){
+    //         $voteAnsers->updateExistingPivot($answer,['vote' => $vote]);
+    //     }else{
+    //         $voteAnsers->attach($answer,['vote' => $vote]);
+    //     }
+    //     $answer->load('votes');
+    //     $downVotes = (int) $answer->downVotes()->sum('vote');
+    //     $upVotes = (int) $answer->upVotes()->sum('vote');
+    //     $answer->votes_count = $upVotes + $downVotes;
+    //     $answer->save();
+    // }
+    public function voteAnswer(Answer $answer, $vote){
         $voteAnsers = $this->voteAnswers();
-        if($voteAnsers->where('votable_id',$answer->id)->exists()){
-            $voteAnsers->updateExistingPivot($answer,['vote' => $vote]);
+        $this->_vote($voteAnsers, $answer, $vote);
+    }
+    public function voteQUestion(Question $question, $vote){
+        $voteQuestions= $this->voteQuestions();
+        $this->_vote($voteQuestions, $question, $vote);
+    }
+    public function _vote($relationship, $model, $vote){
+        if($relationship->where('votable_id', $model->id)->exists()){
+            $relationship->updateExistingPivot($model,['vote' => $vote]);
         }else{
-            $voteAnsers->attach($answer,['vote' => $vote]);
+            $relationship->attach($model,['vote'=>$vote]);
         }
-        $answer->load('votes');
-        $downVotes = (int) $answer->downVotes()->sum('vote');
-        $upVotes = (int) $answer->upVotes()->sum('vote');
-        $answer->votes_count = $upVotes + $downVotes;
-        $answer->save();
+
+        $model->load('votes');
+        $downVotes = (int) $model->downVotes()->sum('vote');
+        $upVotes = (int) $model->upVotes()->sum('vote');
+        $model->votes_count = $upVotes + $downVotes;
+        $model->save();
     }
 
 }
