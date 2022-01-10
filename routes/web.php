@@ -22,7 +22,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('questions', QuestionController::class)->only([
@@ -41,3 +40,7 @@ Route::post('/questions/{question}/favorites',[FavoritesController::class,'store
 Route::delete('/questions/{question}/favorites',[FavoritesController::class, 'destroy'])->name('questions.favorite.delete');
 Route::post('/questions/{question}/vote',[FavoritesController::class, 'vote'])->name('questions.vote');
 Route::post('/answers/{answer}/vote',[FavoritesController::class, 'answerVote'])->name('answers.vote');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

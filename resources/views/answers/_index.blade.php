@@ -36,10 +36,7 @@
                             </div>
                             <div class="float-end">
                                 <div class="media">
-                                    @include('shared._author',[
-                                        'model' =>$answer,
-                                        'lable' =>'answered'
-                                    ])  
+                                   <user-info :model='{{$answer}}' label="Answer"></user-info> 
                                 </div>
                             </div>
                         </div>

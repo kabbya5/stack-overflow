@@ -13,6 +13,7 @@ class Answer extends Model
     use VotableTrait;
     use HasFactory;
     protected $guarded = [];
+    protected $appends =['created_date'];
     public function question(){
         return $this->belongsTo(Question::class);
     }

@@ -21,10 +21,7 @@
                         {!! $question->body !!}
                         <div class="float-end">
                             <div class="media">
-                                @include('shared._author',[
-                                    'model' =>$question,
-                                    'lable' =>'Ask'
-                                ])  
+                                <user-info :model='{{ $question }}' label='Asked'> </user-info> 
                             </div>
                         </div>
                     </div>

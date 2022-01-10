@@ -24,6 +24,12 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+    protected $appends = ['url', 'avatar'];
+    public function getUrlAttribute()
+    {
+        // return route("questions.show", $this->id);
+        return '#';
+    }
 
     /**
      * The attributes that should be hidden for serialization.
